@@ -322,7 +322,8 @@ process
 
 Browserify exports a faux `process` object with these attributes:
 
-* nextTick(fn) - does setTimeout(fn, 0)
+* nextTick(fn) - uses [the postMessage trick](http://dbaron.org/log/20100309-faster-timeouts)
+    for a faster `setTimeout(fn, 0)` if it can
 * title - set to 'browser' for browser code, 'node' in regular node code
 
 require('events')
@@ -425,3 +426,16 @@ to install into your project's node_modules directory, or if you want to use the
 command-line tool, install globally with:
 
     npm install -g browserify
+
+test
+====
+
+To run the node tests with tap, do:
+
+    npm test
+
+To run the [testling](http://testling.com) tests,
+create a [browserling](http://browserling.com) account then:
+
+    cd testling
+    ./test.sh
