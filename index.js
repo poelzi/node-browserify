@@ -50,6 +50,7 @@ var exports = module.exports = function (entryFile, opts) {
             cache : opts.cache,
             fastmatch: opts.fastmatch,
             verbose: opts.verbose,
+            debug: opts.debug,
         })
         .register('.coffee', function (body) {
             return coffee.compile(body)

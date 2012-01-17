@@ -3,6 +3,10 @@ Browserify
 
 Make node-style require() work in the browser, as if by magic!
 
+Browserify generates a single static bundle that you can drop into your
+application with a single `<script>` tag. You can use browserify with any kind
+of web stack that can host up static files.
+
 ![browserify!](http://substack.net/images/browserify/browserify.png)
 
 Just write an `entry.js` to start with some `require()`s in it:
@@ -87,11 +91,13 @@ features at a glance
 
 * watch mode automatically recompiles your bundle when files change
 
+* debug mode for real line numbers (just subtract 2)
+
 command-line usage
 ==================
 
 ````
-Usage: browserify [entry files] {OPTIONS}
+Usage: node ./bin/cli.js [entry files] {OPTIONS}
 
 Options:
   --outfile, -o  Write the browserify bundle to this file.
@@ -105,6 +111,7 @@ Options:
   --cache, -c    Turn on caching at $HOME/.config/browserling/cache.json or use
                  a file for caching.
                                                                  [default: true]
+  --debug, -d    Switch on debugging mode with //@ sourceURL=...s.     [boolean]
   --plugin, -p   Use a plugin. Use a colon separator to specify additional
                  plugin arguments as a JSON string.
                  Example: --plugin 'fileify:["files","."]'                      
@@ -117,7 +124,6 @@ Options:
                  especially useful with --watch.                                
   --help, -h     Show this message                                              
 
-Specify a parameter.
 ````
 
 methods
@@ -143,6 +149,8 @@ script at `opts.mount` or `"/browserify.js"` if unspecified.
 * cache - turn on caching for AST traversals, see below
 * fastmatch - uses a simpler and much faster dependency resovlver
 * verbose - prints filenames of processed files
+* debug - turn on source mapping for debugging with `//@ sourceURL=...`
+in browsers that support it
 
 If `opts` is a string, it is interpreted as a `require` value.
 
