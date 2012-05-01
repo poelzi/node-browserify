@@ -3,6 +3,8 @@ Browserify
 
 Make node-style require() work in the browser, as if by magic!
 
+[![build status](https://secure.travis-ci.org/substack/node-browserify.png)](http://travis-ci.org/substack/node-browserify)
+
 Browserify generates a single static bundle that you can drop into your
 application with a single `<script>` tag. You can use browserify with any kind
 of web stack that can host up static files.
@@ -85,6 +87,11 @@ features at a glance
     > * require('events')
     > * require('path')
     > * require('vm')
+    > * require('http')
+    > * require('assert')
+    > * require('url')
+    > * require('buffer')
+    > * require('util')
     > * require('querystring')
 
 * lots of ways to compile
@@ -337,13 +344,33 @@ Browserify exports a faux `process` object with these attributes:
 require('events')
 -----------------
 
-You can `require('events').EventEmitter` just like in node.js code.
+require('assert')
+-----------------
+
+require('url')
+--------------
+
+require('buffer')
+-----------------
+
+require('buffer_ieee754')
+-------------------------
+
+require('stream')
+-----------------
 
 require('vm')
 -------------
 
 All the goodness of node's `require('vm')` has been emulated with iframe
-trickery and `eval()` hacks.
+trickery. This functionality is made available by the
+[vm-browserify](https://github.com/substack/vm-browserify) project.
+
+require('http')
+---------------
+
+Implement the client side of the node http api using the
+[http-browserify](https://github.com/substack/http-browserify) project.
 
 require('path')
 ---------------

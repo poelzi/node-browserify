@@ -2,13 +2,16 @@ var path = require('path');
 var browserify = require('../');
 var test = require('tap').test;
 
+function filter (x) {
+    var s = __dirname + '/wrap/';
+    return x.slice(0, s.length) === s;
+}
+
 test('wrap', function (t) {
     t.plan(1);
     var files = browserify({ require : __dirname + '/wrap/a.js' }).files;
     
-    t.deepEqual(Object.keys(files).sort(), [
-        path.normalize(__dirname + '/../builtins/path.js'),
-        path.normalize(__dirname + '/../builtins/vm.js'),
+    t.deepEqual(Object.keys(files).filter(filter).sort(), [
         __dirname + '/wrap/a.js',
         __dirname + '/wrap/node_modules/b/main.js',
         __dirname + '/wrap/node_modules/b/package.json',
@@ -27,9 +30,7 @@ test('wrapArray', function (t) {
         ]
     }).files;
     
-    t.deepEqual(Object.keys(files).sort(), [
-        path.normalize(__dirname + '/../builtins/path.js'),
-        path.normalize(__dirname + '/../builtins/vm.js'),
+    t.deepEqual(Object.keys(files).filter(filter).sort(), [
         __dirname + '/wrap/a.js',
         __dirname + '/wrap/node_modules/b/main.js',
         __dirname + '/wrap/node_modules/b/package.json',
